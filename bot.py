@@ -22,7 +22,8 @@ def obtener_resumen():
             {"role": "user", "content": prompt}
         ]
     }
-    r = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+
+r = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
     return r.json()["choices"][0]["message"]["content"]
 
 def enviar_resumen():
