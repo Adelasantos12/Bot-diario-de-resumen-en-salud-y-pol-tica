@@ -18,7 +18,9 @@ def obtener_resumen():
     }
     data = {
         "model": "gpt-4",
-        "messages": [{"role": "user", "content": prompt}]
+        "messages": [
+            {"role": "user", "content": prompt}
+        ]
     }
     r = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
     return r.json()["choices"][0]["message"]["content"]
@@ -33,3 +35,6 @@ def enviar_resumen():
         "parse_mode": "Markdown"
     }
     requests.post(url, data=data)
+
+if __name__ == "__main__":
+    enviar_resumen()
