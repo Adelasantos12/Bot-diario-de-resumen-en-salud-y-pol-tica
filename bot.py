@@ -29,3 +29,7 @@ def enviar_resumen():
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     data = {
         "chat_id": CHAT_ID,
+        "text": mensaje,
+        "parse_mode": "Markdown"
+    }
+    requests.post(url, data=data)
