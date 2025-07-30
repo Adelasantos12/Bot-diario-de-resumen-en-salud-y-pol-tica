@@ -23,8 +23,20 @@ def obtener_resumen():
         ]
     }
 
-r = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
-    return r.json()["choices"][0]["message"]["content"]
+    r = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
+
+    # Manejo de errores
+    if r.status_code != 200:
+        print("🔴 Error al conectar con OpenAI:", r.status_code)
+        print("🧾 Respuesta:", r.text)
+        return "Error al obtener el resumen."
+
+    try:
+        return r.json()["choices"][0]["message"]["content"]
+    except (KeyError, IndexError) as e:
+        print("⚠️ Error al procesar la respuesta de OpenAI:", e)
+        print("Respuesta cruda:", r.text)
+        return "Error al procesar la respuesta del modelo."
 
 def enviar_resumen():
     resumen = obtener_resumen()
